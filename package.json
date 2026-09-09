@@ -1,0 +1,30 @@
+{
+  "name": "konoha-cek",
+  "version": "1.0.0",
+  "description": "Konoha Cek - Simple Telegram Bot Checker",
+  "main": "bot.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "nodemon bot.js",
+    "pm2": "pm2 start bot.js --name KONOHA-CEK",
+    "logs": "pm2 logs KONOHA-CEK",
+    "restart": "pm2 restart KONOHA-CEK",
+    "stop": "pm2 stop KONOHA-CEK"
+  },
+  "keywords": ["konoha", "telegram-bot", "konoha-cek", "abh-data"],
+  "author": "Konoha Cek",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "node-telegram-bot-api": "^0.67.0",
+    "qrcode": "^1.5.4",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
