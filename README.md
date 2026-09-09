@@ -27,3 +27,36 @@
 ---
 
 ## 📋 Struktur File
+
+
+
+---
+
+## 🚀 Instalasi
+
+### Prasyarat
+
+- **Node.js** v18 atau lebih tinggi
+- **NPM** (terinstall bersama Node.js)
+- **PM2** (akan diinstall otomatis)
+- **Telegram Bot Token** dari [@BotFather](https://t.me/BotFather)
+
+---
+
+### Cara Instalasi
+
+#### 1. Upload File ke Server
+
+Upload file `Bot-cek.zip` ke server VPS Anda.
+
+#### 2. Jalankan Perintah Instalasi
+
+```bash
+cd ~
+unzip Bot-cek.zip
+cd ~/Bot-cek
+npm install node-telegram-bot-api qrcode --save
+pm2 start bot.js --name "konoha-cek"
+pm2 save
+pm2 logs konoha-cek --lines 20
+
