@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📋 Keterangan API — Konoha Cek Bot</title>
+<title>Keterangan API — Konoha Cek Bot</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --primary:#6366f1; --primary-light:#818cf8; --success:#10b981;
-  --warning:#f59e0b; --gray:#64748b; --light:#f8fafc;
+  --primary:#6366f1;--primary-light:#818cf8;--success:#10b981;
+  --warning:#f59e0b;--gray:#64748b;--light:#f8fafc;
   --gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);
   --gradient-2:linear-gradient(135deg,#06b6d4,#3b82f6);
   --gradient-gold:linear-gradient(135deg,#f59e0b,#eab308);
@@ -24,7 +24,6 @@ body{
 }
 .container{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 
-/* HEADER */
 .header{
   text-align:center;padding:44px 24px;border-radius:20px;position:relative;overflow:hidden;
   background:linear-gradient(135deg,rgba(30,41,59,.8),rgba(51,65,85,.6));
@@ -54,11 +53,9 @@ body{
 }
 .header p{color:var(--gray);font-size:14px;font-weight:500}
 
-/* CARD */
 .card{
   background:rgba(30,41,59,.6);backdrop-filter:blur(20px);
-  border:1px solid rgba(99,102,241,.2);border-radius:18px;padding:24px;
-  transition:.3s;
+  border:1px solid rgba(99,102,241,.2);border-radius:18px;padding:24px;transition:.3s;
 }
 .card:hover{border-color:rgba(99,102,241,.5);box-shadow:0 20px 50px rgba(99,102,241,.1)}
 .card-title{
@@ -68,7 +65,6 @@ body{
 }
 .card-title::before{content:'';width:4px;height:18px;background:var(--gradient);border-radius:2px}
 
-/* API KEY */
 .apikey-box{
   background:linear-gradient(135deg,rgba(15,23,42,.9),rgba(30,41,59,.9));
   border:2px solid rgba(99,102,241,.4);border-radius:14px;padding:18px;
@@ -86,7 +82,6 @@ body{
 .copy-hint{font-size:11px;color:var(--gray);margin-top:6px;font-style:italic}
 .mt-16{margin-top:16px}
 
-/* WARNING */
 .warning{
   display:flex;gap:12px;align-items:flex-start;margin-top:14px;
   padding:14px 16px;border-radius:12px;
@@ -96,7 +91,6 @@ body{
 .warning-icon{font-size:18px;flex-shrink:0}
 .warning-text{font-size:13px;color:#fbbf24}
 
-/* TABLE */
 .fitur-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:14px}
 .fitur-table th{
   text-align:left;padding:10px 14px;font-size:11px;color:var(--gray);
@@ -117,7 +111,6 @@ body{
 }
 .text-right{text-align:right}
 
-/* DETAIL GRID */
 .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .detail-card{
   background:rgba(15,23,42,.6);border:1px solid rgba(99,102,241,.15);
@@ -149,7 +142,6 @@ body{
 }
 .detail-endpoint strong{color:var(--success)}
 
-/* LISTS */
 .notes-list,.security-list{list-style:none}
 .notes-list li{
   padding:10px 0 10px 34px;position:relative;font-size:13.5px;color:#cbd5e1;
@@ -175,7 +167,6 @@ body{
 }
 code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--primary-light)}
 
-/* SIMULASI */
 .sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px}
 .sim-card{
   background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,182,212,.1));
@@ -185,7 +176,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
 .sim-card-text{font-size:13px;color:#cbd5e1;font-weight:500}
 .sim-card-text strong{color:var(--success);font-family:'JetBrains Mono',monospace}
 
-/* KONTAK */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .contact-card{
   display:block;text-align:center;padding:18px;border-radius:14px;text-decoration:none;color:var(--light);
@@ -197,7 +187,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
 .contact-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:4px}
 .contact-value{font-size:14px;font-weight:700;color:var(--primary-light)}
 
-/* FOOTER */
 .footer{text-align:center;padding:28px 16px;color:var(--gray);font-size:12.5px;border-top:1px solid rgba(99,102,241,.15)}
 .footer-logo{font-size:28px;display:block;margin-bottom:8px}
 .footer-text{
@@ -205,7 +194,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
   background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
 }
 
-/* TOAST */
 .toast{
   position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);
   background:linear-gradient(135deg,#10b981,#059669);color:#fff;
@@ -229,7 +217,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
 <body>
 <div class="container">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="header-content">
       <span class="badge">API Documentation</span>
@@ -239,7 +226,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </div>
   </header>
 
-  <!-- API KEY -->
   <section class="card">
     <div class="card-title">🔑 API Key</div>
     <div class="apikey-box">
@@ -257,7 +243,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </div>
   </section>
 
-  <!-- DAFTAR FITUR -->
   <section class="card">
     <div class="card-title">📊 Daftar Fitur & Harga</div>
     <table class="fitur-table">
@@ -278,7 +263,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </table>
   </section>
 
-  <!-- DETAIL FITUR -->
   <section class="card">
     <div class="card-title">🔍 Keterangan Tiap Fitur</div>
     <div class="detail-grid">
@@ -376,7 +360,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </div>
   </section>
 
-  <!-- CATATAN -->
   <section class="card">
     <div class="card-title">⚠️ Catatan Penting</div>
     <ul class="notes-list">
@@ -390,7 +373,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </ul>
   </section>
 
-  <!-- SIMULASI -->
   <section class="card">
     <div class="card-title">💰 Simulasi Biaya</div>
     <p style="color:#94a3b8;font-size:13.5px">Kalau user topup <strong style="color:#10b981">Rp20.000</strong>, bisa cek:</p>
@@ -402,7 +384,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </div>
   </section>
 
-  <!-- KONTAK -->
   <section class="card">
     <div class="card-title">📞 Kontak Owner</div>
     <div class="contact-grid">
@@ -420,7 +401,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     <p style="text-align:center;color:#64748b;font-size:12.5px;margin-top:16px">Kalau ada masalah/kendala, hubungi owner.</p>
   </section>
 
-  <!-- KEAMANAN -->
   <section class="card">
     <div class="card-title">🔒 Keamanan API Key</div>
     <ol class="security-list">
@@ -433,7 +413,6 @@ code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padd
     </ol>
   </section>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <span class="footer-logo">🍃</span>
     <div class="footer-text">KONOHA CEK BOT</div>
