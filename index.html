@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📋 Keterangan API — Konoha Cek Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#6366f1; --primary-light:#818cf8; --success:#10b981;
+  --warning:#f59e0b; --gray:#64748b; --light:#f8fafc;
+  --gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#ec4899);
+  --gradient-2:linear-gradient(135deg,#06b6d4,#3b82f6);
+  --gradient-gold:linear-gradient(135deg,#f59e0b,#eab308);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;color:var(--light);line-height:1.6;
+  background:#0a0e1a;min-height:100vh;padding:32px 16px;
+  background-image:
+    radial-gradient(at 20% 10%,rgba(99,102,241,.15),transparent 50%),
+    radial-gradient(at 80% 90%,rgba(139,92,246,.15),transparent 50%),
+    radial-gradient(at 50% 50%,rgba(236,72,153,.08),transparent 50%);
+}
+.container{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+
+/* HEADER */
+.header{
+  text-align:center;padding:44px 24px;border-radius:20px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(30,41,59,.8),rgba(51,65,85,.6));
+  border:1px solid rgba(99,102,241,.3);backdrop-filter:blur(20px);
+  box-shadow:0 20px 60px rgba(99,102,241,.15);
+}
+.header::before{
+  content:'';position:absolute;inset:-50%;pointer-events:none;
+  background:conic-gradient(from 0deg,transparent,rgba(99,102,241,.1),transparent);
+  animation:rotate 20s linear infinite;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.header-content{position:relative;z-index:1}
+.badge{
+  display:inline-block;padding:5px 14px;margin-bottom:14px;border-radius:50px;
+  background:rgba(16,185,129,.15);color:var(--success);
+  border:1px solid rgba(16,185,129,.3);
+  font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+}
+.badge::before{content:'●';margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.header-icon{font-size:52px;display:block;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.header h1{
+  font-size:clamp(24px,5vw,38px);font-weight:900;letter-spacing:-1px;margin-bottom:8px;
+  background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.header p{color:var(--gray);font-size:14px;font-weight:500}
+
+/* CARD */
+.card{
+  background:rgba(30,41,59,.6);backdrop-filter:blur(20px);
+  border:1px solid rgba(99,102,241,.2);border-radius:18px;padding:24px;
+  transition:.3s;
+}
+.card:hover{border-color:rgba(99,102,241,.5);box-shadow:0 20px 50px rgba(99,102,241,.1)}
+.card-title{
+  display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  font-size:13px;font-weight:700;color:var(--primary-light);
+  text-transform:uppercase;letter-spacing:2px;
+}
+.card-title::before{content:'';width:4px;height:18px;background:var(--gradient);border-radius:2px}
+
+/* API KEY */
+.apikey-box{
+  background:linear-gradient(135deg,rgba(15,23,42,.9),rgba(30,41,59,.9));
+  border:2px solid rgba(99,102,241,.4);border-radius:14px;padding:18px;
+  position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(99,102,241,.2);
+}
+.apikey-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
+.apikey-label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:10px}
+.apikey-value{
+  font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--primary-light);
+  background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);
+  padding:14px;border-radius:10px;word-break:break-all;cursor:pointer;transition:.2s;
+}
+.apikey-value:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4)}
+.apikey-value:active{transform:scale(.98)}
+.copy-hint{font-size:11px;color:var(--gray);margin-top:6px;font-style:italic}
+.mt-16{margin-top:16px}
+
+/* WARNING */
+.warning{
+  display:flex;gap:12px;align-items:flex-start;margin-top:14px;
+  padding:14px 16px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(239,68,68,.1));
+  border-left:4px solid var(--warning);
+}
+.warning-icon{font-size:18px;flex-shrink:0}
+.warning-text{font-size:13px;color:#fbbf24}
+
+/* TABLE */
+.fitur-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:14px}
+.fitur-table th{
+  text-align:left;padding:10px 14px;font-size:11px;color:var(--gray);
+  text-transform:uppercase;letter-spacing:1.5px;font-weight:700;
+  border-bottom:1px solid rgba(99,102,241,.15);
+}
+.fitur-table td{background:rgba(15,23,42,.5);padding:14px;transition:.2s}
+.fitur-table tr:hover td{background:rgba(99,102,241,.1)}
+.fitur-table td:first-child{border-radius:12px 0 0 12px}
+.fitur-table td:last-child{border-radius:0 12px 12px 0}
+.fitur-name{display:flex;align-items:center;gap:10px;font-weight:600}
+.fitur-icon{font-size:18px}
+.price{font-family:'JetBrains Mono',monospace;color:var(--success);font-weight:700}
+.endpoint{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary-light);
+  background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);
+  padding:3px 8px;border-radius:6px;display:inline-block;
+}
+.text-right{text-align:right}
+
+/* DETAIL GRID */
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.detail-card{
+  background:rgba(15,23,42,.6);border:1px solid rgba(99,102,241,.15);
+  border-radius:14px;padding:20px;position:relative;overflow:hidden;transition:.3s;
+}
+.detail-card::before{
+  content:'';position:absolute;top:0;left:0;width:100%;height:3px;
+  background:var(--gradient-2);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.detail-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.4)}
+.detail-card:hover::before{transform:scaleX(1)}
+.detail-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}
+.detail-title{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.detail-price{
+  background:var(--gradient-gold);color:#0f172a;padding:5px 12px;border-radius:50px;
+  font-size:11px;font-weight:800;font-family:'JetBrains Mono',monospace;white-space:nowrap;
+  box-shadow:0 4px 12px rgba(245,158,11,.3);
+}
+.detail-desc{font-size:13px;color:#94a3b8;margin-bottom:12px}
+.detail-output{background:rgba(99,102,241,.08);border-left:3px solid var(--primary);border-radius:10px;padding:12px;margin-bottom:12px}
+.detail-output-title{font-size:10px;color:var(--primary-light);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px}
+.detail-output ul{list-style:none}
+.detail-output li{font-size:12px;color:#cbd5e1;padding:3px 0 3px 16px;position:relative}
+.detail-output li::before{content:'▸';position:absolute;left:0;color:var(--primary-light)}
+.detail-endpoint{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gray);
+  background:rgba(15,23,42,.8);border:1px solid rgba(99,102,241,.15);
+  border-radius:8px;padding:10px 12px;word-break:break-all;line-height:1.5;
+}
+.detail-endpoint strong{color:var(--success)}
+
+/* LISTS */
+.notes-list,.security-list{list-style:none}
+.notes-list li{
+  padding:10px 0 10px 34px;position:relative;font-size:13.5px;color:#cbd5e1;
+  border-bottom:1px solid rgba(99,102,241,.08);
+}
+.notes-list li:last-child,.security-list li:last-child{border-bottom:none}
+.notes-list li::before{
+  content:'✓';position:absolute;left:0;top:10px;width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:rgba(16,185,129,.15);color:var(--success);
+  border:1px solid rgba(16,185,129,.3);font-size:11px;font-weight:700;
+}
+.security-list{counter-reset:sec}
+.security-list li{
+  counter-increment:sec;padding:12px 0 12px 46px;position:relative;
+  font-size:13.5px;color:#cbd5e1;border-bottom:1px solid rgba(99,102,241,.08);
+}
+.security-list li::before{
+  content:counter(sec);position:absolute;left:0;top:10px;width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;border-radius:10px;
+  background:var(--gradient);color:#fff;font-weight:800;font-size:12px;
+  font-family:'JetBrains Mono',monospace;box-shadow:0 4px 12px rgba(99,102,241,.3);
+}
+code{font-family:'JetBrains Mono',monospace;background:rgba(99,102,241,.15);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--primary-light)}
+
+/* SIMULASI */
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px}
+.sim-card{
+  background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,182,212,.1));
+  border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:16px;text-align:center;
+}
+.sim-card-icon{font-size:26px;margin-bottom:6px}
+.sim-card-text{font-size:13px;color:#cbd5e1;font-weight:500}
+.sim-card-text strong{color:var(--success);font-family:'JetBrains Mono',monospace}
+
+/* KONTAK */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.contact-card{
+  display:block;text-align:center;padding:18px;border-radius:14px;text-decoration:none;color:var(--light);
+  background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(139,92,246,.1));
+  border:1px solid rgba(99,102,241,.3);transition:.3s;
+}
+.contact-card:hover{transform:translateY(-4px);border-color:rgba(99,102,241,.6);box-shadow:0 15px 30px rgba(99,102,241,.2)}
+.contact-icon{font-size:28px;display:block;margin-bottom:8px}
+.contact-label{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:4px}
+.contact-value{font-size:14px;font-weight:700;color:var(--primary-light)}
+
+/* FOOTER */
+.footer{text-align:center;padding:28px 16px;color:var(--gray);font-size:12.5px;border-top:1px solid rgba(99,102,241,.15)}
+.footer-logo{font-size:28px;display:block;margin-bottom:8px}
+.footer-text{
+  font-weight:800;font-size:15px;letter-spacing:2px;margin-bottom:6px;
+  background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);
+  background:linear-gradient(135deg,#10b981,#059669);color:#fff;
+  padding:12px 22px;border-radius:50px;font-weight:600;font-size:13px;
+  box-shadow:0 10px 30px rgba(16,185,129,.4);transition:transform .3s;
+  z-index:9999;pointer-events:none;
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:640px){
+  body{padding:16px 12px}
+  .header{padding:32px 16px}
+  .card{padding:18px;border-radius:14px}
+  .apikey-value{font-size:12.5px;padding:12px}
+  .fitur-table th,.fitur-table td{padding:10px 8px;font-size:12.5px}
+  .endpoint{font-size:10px;padding:2px 6px}
+  .detail-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <span class="badge">API Documentation</span>
+      <span class="header-icon">🍃</span>
+      <h1>KONOHA CEK BOT</h1>
+      <p>Keterangan API Key & Fitur — Premium Edition</p>
+    </div>
+  </header>
+
+  <!-- API KEY -->
+  <section class="card">
+    <div class="card-title">🔑 API Key</div>
+    <div class="apikey-box">
+      <div class="apikey-label">Secret Token</div>
+      <div class="apikey-value" onclick="copyKey()">a39f0c79862f41b494b0608fb7c1def7</div>
+      <div class="copy-hint">👆 Klik untuk copy</div>
+    </div>
+    <div class="mt-16">
+      <div class="apikey-label">Base URL</div>
+      <div class="apikey-value" style="font-size:13px">https://typically-bonus-ultram-appearance.trycloudflare.com</div>
+    </div>
+    <div class="warning">
+      <span class="warning-icon">⚠️</span>
+      <div class="warning-text"><strong>Simpan dengan bijak!</strong> Jangan share API key ke siapapun. Ini kunci akses token lo. Kalo bocor, orang lain bisa pake token lo.</div>
+    </div>
+  </section>
+
+  <!-- DAFTAR FITUR -->
+  <section class="card">
+    <div class="card-title">📊 Daftar Fitur & Harga</div>
+    <table class="fitur-table">
+      <thead>
+        <tr><th>Fitur</th><th>Endpoint</th><th class="text-right">Harga</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">🆔</span> NIK Dukcapil</span></td><td><span class="endpoint">/api/cek_nik</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">🏠</span> KK Dukcapil</span></td><td><span class="endpoint">/api/kk</span></td><td class="text-right"><span class="price">Rp4.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">👤</span> Nama Dukcapil</span></td><td><span class="endpoint">/api/cek_nama</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">📱</span> NIK to HP (Data Bocor)</span></td><td><span class="endpoint">/api/data-bocor</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">📇</span> GetContact</span></td><td><span class="endpoint">/api/getcontact</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">🔗</span> NIK to KK</span></td><td><span class="endpoint">/api/nik2kk</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">🚗</span> Cek Data Kendaraan</span></td><td><span class="endpoint">/api/nopol</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">📸</span> NIK to Foto</span></td><td><span class="endpoint">/api/nikfoto</span></td><td class="text-right"><span class="price">Rp4.000</span></td></tr>
+        <tr><td><span class="fitur-name"><span class="fitur-icon">💳</span> Cek BPJS-Kes</span></td><td><span class="endpoint">/api/keluarga_bpjs</span></td><td class="text-right"><span class="price">Rp2.000</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DETAIL FITUR -->
+  <section class="card">
+    <div class="card-title">🔍 Keterangan Tiap Fitur</div>
+    <div class="detail-grid">
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>🆔</span> NIK Dukcapil</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cek data kependudukan berdasarkan NIK 16 digit dari database Dukcapil.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Nama lengkap</li><li>Tempat & tanggal lahir</li><li>Jenis kelamin</li><li>Agama, gol darah, pendidikan</li><li>Status pernikahan & keluarga</li><li>Alamat lengkap</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/cek_nik?nik=<strong>{NIK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>🏠</span> KK Dukcapil</div><div class="detail-price">Rp4.000</div></div>
+        <div class="detail-desc">Cek data Kartu Keluarga berdasarkan No. KK 16 digit.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>No. KK & jumlah anggota</li><li>Kepala keluarga (lengkap)</li><li>Seluruh anggota keluarga</li><li>Data KK lama & terbaru</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/kk?nokk=<strong>{NOKK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>👤</span> Nama Dukcapil</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cari data kependudukan berdasarkan nama lengkap.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Multiple hasil (kalau ada)</li><li>NIK, alamat, umur, pekerjaan</li><li>Data orang tua</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/cek_nama?nama=<strong>{NAMA}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>📱</span> NIK to HP</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cari nomor HP & data kebocoran dari NIK/nama/email/HP.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Nomor HP (multiple)</li><li>Provider (Telkomsel, dll)</li><li>Tanggal registrasi</li><li>Sumber kebocoran</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/data-bocor?q=<strong>{NIK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>📇</span> GetContact</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cek nama pemilik nomor HP dari database komunitas GetContact.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Nama pemilik</li><li>Operator</li><li>Tags (nama panggilan)</li><li>Status spam & suspicious</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/getcontact?nomor=<strong>{HP}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>🔗</span> NIK to KK</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Konversi NIK ke No. KK dari database Dukcapil.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>No. KK</li><li>Nama lengkap</li><li>Tempat & tanggal lahir</li><li>Jenis kelamin</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/nik2kk?nik=<strong>{NIK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>🚗</span> Cek Data Kendaraan</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cek data kendaraan berdasarkan plat nomor.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Merk, tipe, tahun, warna</li><li>CC, BBM, no rangka/mesin</li><li>Nama pemilik & NIK</li><li>Status pajak & exp</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/nopol?plat=<strong>{PLAT}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>📸</span> NIK to Foto</div><div class="detail-price">Rp4.000</div></div>
+        <div class="detail-desc">Cek data kependudukan + foto KTP + family tree.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Data pribadi lengkap</li><li>Foto KTP (base64)</li><li>Family tree (keluarga)</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/nikfoto?nik=<strong>{NIK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-header"><div class="detail-title"><span>💳</span> Cek BPJS-Kes</div><div class="detail-price">Rp2.000</div></div>
+        <div class="detail-desc">Cek data BPJS keluarga berdasarkan NIK.</div>
+        <div class="detail-output">
+          <div class="detail-output-title">Output:</div>
+          <ul><li>Total anggota keluarga</li><li>Nama setiap anggota</li><li>Jenis kepesertaan</li><li>Status (AKTIF/TIDAK)</li></ul>
+        </div>
+        <div class="detail-endpoint">GET /api/keluarga_bpjs?nik=<strong>{NIK}</strong>&key=<strong>{API_KEY}</strong></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CATATAN -->
+  <section class="card">
+    <div class="card-title">⚠️ Catatan Penting</div>
+    <ul class="notes-list">
+      <li>Harga di atas = biaya per <strong>1x cek</strong></li>
+      <li>Setiap request <strong>kepotong dari saldo</strong> user</li>
+      <li>Kalau data ga ketemu → saldo <strong>REFUND otomatis</strong></li>
+      <li>Token API ada limitnya, cek sisa pake field <code>tokens_remaining</code></li>
+      <li><strong>Jangan share</strong> API key ke siapapun</li>
+      <li>Base URL bisa berubah kalo tunnel restart</li>
+      <li>Owner mode <strong>GRATIS</strong> (buat owner bot doang)</li>
+    </ul>
+  </section>
+
+  <!-- SIMULASI -->
+  <section class="card">
+    <div class="card-title">💰 Simulasi Biaya</div>
+    <p style="color:#94a3b8;font-size:13.5px">Kalau user topup <strong style="color:#10b981">Rp20.000</strong>, bisa cek:</p>
+    <div class="sim-grid">
+      <div class="sim-card"><div class="sim-card-icon">🆔</div><div class="sim-card-text"><strong>10x</strong> NIK Dukcapil</div></div>
+      <div class="sim-card"><div class="sim-card-icon">🏠</div><div class="sim-card-text"><strong>5x</strong> KK Dukcapil</div></div>
+      <div class="sim-card"><div class="sim-card-icon">🎯</div><div class="sim-card-text">5x NIK + 2x KK + 1x BPJS</div></div>
+      <div class="sim-card"><div class="sim-card-icon">✨</div><div class="sim-card-text">Campuran sesuai kebutuhan</div></div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section class="card">
+    <div class="card-title">📞 Kontak Owner</div>
+    <div class="contact-grid">
+      <a href="https://t.me/Kjsstore_own" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon">📨</span>
+        <div class="contact-label">Telegram</div>
+        <div class="contact-value">@Kjsstore_own</div>
+      </a>
+      <a href="https://wa.me/6285943111681" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon">📱</span>
+        <div class="contact-label">WhatsApp</div>
+        <div class="contact-value">085943111681</div>
+      </a>
+    </div>
+    <p style="text-align:center;color:#64748b;font-size:12.5px;margin-top:16px">Kalau ada masalah/kendala, hubungi owner.</p>
+  </section>
+
+  <!-- KEAMANAN -->
+  <section class="card">
+    <div class="card-title">🔒 Keamanan API Key</div>
+    <ol class="security-list">
+      <li>Simpen di 1 file aja (<code>config.js</code>)</li>
+      <li>Backup file <code>config.js</code> secara berkala</li>
+      <li>Chmod 600 <code>config.js</code> (khusus owner)</li>
+      <li>Jangan commit ke Git publik</li>
+      <li>Monitor pemakaian token tiap hari</li>
+      <li>Ganti key kalo bocor</li>
+    </ol>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer-logo">🍃</span>
+    <div class="footer-text">KONOHA CEK BOT</div>
+    <p>Premium API Documentation • © 2026</p>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast">✅ API Key dicopy!</div>
+
+<script>
+function copyKey(){
+  navigator.clipboard.writeText('a39f0c79862f41b494b0608fb7c1def7').then(()=>{
+    const t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2000);
+  }).catch(e=>console.error('Gagal copy:',e));
+}
+</script>
+</body>
+</html>
